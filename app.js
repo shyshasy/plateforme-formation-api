@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import helmet from 'helmet';
 import studentRouter from './src/routes/studentRoutes.js';
+import registrationRouter from './src/routes/registrationRoutes.js';
 import moduleRouter from './src/routes/moduleRoutes.js';
 
 // Charger les variables d'environnement
@@ -19,6 +20,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(studentRouter);
+app.use(registrationRouter)
 app.use(moduleRouter)
 
 
