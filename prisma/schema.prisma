@@ -16,7 +16,7 @@ datasource db {
 model modules {
   id       Int      @id @default(autoincrement())
   name     String   @db.VarChar(50)
-  duration DateTime
+  duration Int           
   price    Decimal  @db.Decimal(10, 2)
   status   Boolean
 
