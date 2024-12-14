@@ -15,11 +15,11 @@ export const createRegistrationValidator = [
     .isISO8601()
     .withMessage("Start date must be a valid ISO 8601 date."),
 
-  check("amount")
-    .notEmpty()
-    .withMessage("Amount is required.")
-    .isDecimal({ decimal_digits: "2" })
-    .withMessage("Amount must be a valid decimal number with two decimal places."),
+  // check("amount")
+  //   .notEmpty()
+  //   .withMessage("Amount is required.")
+  //   .isDecimal({ decimal_digits: "2" })
+  //   .withMessage("Amount must be a valid decimal number with two decimal places."),
 
   check("moduleId")
     .isInt({ min: 1 })

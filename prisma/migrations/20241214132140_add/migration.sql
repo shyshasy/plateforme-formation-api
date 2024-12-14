@@ -2,7 +2,7 @@
 CREATE TABLE "modules" (
     "id" SERIAL NOT NULL,
     "name" VARCHAR(50) NOT NULL,
-    "duration" TIMESTAMP(3) NOT NULL,
+    "duration" INTEGER NOT NULL,
     "price" DECIMAL(10,2) NOT NULL,
     "status" BOOLEAN NOT NULL,
 
@@ -40,6 +40,7 @@ CREATE TABLE "payments" (
     "id" SERIAL NOT NULL,
     "paymentDate" TIMESTAMP(3) NOT NULL,
     "amount" DECIMAL(10,2) NOT NULL,
+    "remainingAmount" DECIMAL(10,2) NOT NULL,
     "payer" VARCHAR(50) NOT NULL,
     "payerNumber" VARCHAR(15) NOT NULL,
     "paymentMode" VARCHAR(50) NOT NULL,
