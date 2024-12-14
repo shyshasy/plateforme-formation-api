@@ -6,15 +6,16 @@ import prisma from "../config/prisma.js";
 export const createRegistrationValidator = [
   check("dateRegister")
     .notEmpty()
-    .withMessage("Registration date is required.")
-    .isISO8601()
-    .withMessage("Registration date must be a valid ISO 8601 date."),
+    .withMessage("Registration date is required."),
+    // .isISO8601()
+    // .withMessage("Registration date must be a valid ISO 8601 date."),
 
   check("startDate")
     .notEmpty()
     .withMessage("Start date is required.")
     .isISO8601()
     .withMessage("Start date must be a valid ISO 8601 date."),
+
 
   check("amount")
     .notEmpty()
@@ -23,6 +24,7 @@ export const createRegistrationValidator = [
     .withMessage(
       "Amount must be a valid decimal number with two decimal places.",
     ),
+
 
   check("moduleId")
     .not()
