@@ -1,6 +1,6 @@
 import { check, validationResult, param } from "express-validator";
 import { StatusCodes } from "http-status-codes";
-import prisma from "../config/prisma.js";
+// import prisma from "../config/prisma.js";
 
 export const createPaymentValidator = [
   check("paymentDate")
