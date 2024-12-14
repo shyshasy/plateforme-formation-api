@@ -18,7 +18,7 @@ describe("Registrations tests", () => {
         amount: 100.0,
         moduleId: moduleId,
         studentId: studentId,
-      })
+      }),
     );
 
     // Mocking the update method for registrations
@@ -31,7 +31,7 @@ describe("Registrations tests", () => {
         amount: 200.0,
         moduleId: moduleId,
         studentId: studentId,
-      })
+      }),
     );
 
     // Mocking the findMany method for registrations
@@ -46,12 +46,12 @@ describe("Registrations tests", () => {
           moduleId: moduleId,
           studentId: studentId,
         },
-      ])
+      ]),
     );
 
     // Mocking the delete method for registrations
     spyOn(prisma.registrations, "delete").and.returnValue(
-      Promise.resolve({ id: registrationId })
+      Promise.resolve({ id: registrationId }),
     );
   });
 

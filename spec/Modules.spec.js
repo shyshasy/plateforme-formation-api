@@ -14,7 +14,7 @@ describe("Modules tests", () => {
         duration: new Date(),
         price: 100.0,
         status: true,
-      })
+      }),
     );
 
     // Mocking the update method for modules
@@ -25,7 +25,7 @@ describe("Modules tests", () => {
         duration: new Date(),
         price: 150.0,
         status: true,
-      })
+      }),
     );
 
     // Mocking the findMany method for modules
@@ -38,12 +38,12 @@ describe("Modules tests", () => {
           price: 100.0,
           status: true,
         },
-      ])
+      ]),
     );
 
     // Mocking the delete method for modules
     spyOn(prisma.modules, "delete").and.returnValue(
-      Promise.resolve({ id: moduleId })
+      Promise.resolve({ id: moduleId }),
     );
   });
 

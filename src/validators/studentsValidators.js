@@ -1,7 +1,5 @@
 import { check, param, validationResult } from "express-validator";
-import prisma from "../config/prisma.js";
 import { StatusCodes } from "http-status-codes";
-
 
 export const createStudentValidator = [
   check("fullName")
@@ -29,15 +27,9 @@ export const createStudentValidator = [
     .isEmail()
     .withMessage("Invalid email format."),
 
-  check("address")
-    .trim()
-    .notEmpty()
-    .withMessage("Address is required."),
+  check("address").trim().notEmpty().withMessage("Address is required."),
 
-  check("tutor")
-    .trim()
-    .notEmpty()
-    .withMessage("Tutor name is required."),
+  check("tutor").trim().notEmpty().withMessage("Tutor name is required."),
 
   check("status")
     .isBoolean()
@@ -51,7 +43,7 @@ export const createStudentValidator = [
         .json({ errors: errors.array() });
     }
     next();
-  }
+  },
 ];
 export const updateStudentValidator = [
   param("id")
@@ -101,7 +93,7 @@ export const updateStudentValidator = [
         .json({ errors: errors.array() });
     }
     next();
-  }
+  },
 ];
 export const getStudentByIdValidator = [
   param("id")
@@ -116,7 +108,7 @@ export const getStudentByIdValidator = [
         .json({ errors: errors.array() });
     }
     next();
-  }
+  },
 ];
 export const deleteStudentValidator = [
   param("id")
@@ -131,5 +123,5 @@ export const deleteStudentValidator = [
         .json({ errors: errors.array() });
     }
     next();
-  }
+  },
 ];
