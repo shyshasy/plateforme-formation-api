@@ -16,7 +16,6 @@ export const createRegistrationValidator = [
     .isISO8601()
     .withMessage("Start date must be a valid ISO 8601 date."),
 
-
   check("amount")
     .notEmpty()
     .withMessage("Amount is required.")
@@ -26,14 +25,16 @@ export const createRegistrationValidator = [
     ),
 
   check("moduleId")
-  .not()
-  .isEmpty()
-  .withMessage("Module ID is required.")
-  .bail()
-  .custom(async (moduleId) => {
-    const module = await prisma.modules.findUnique({ where: { id: moduleId } });
-    if (!module) throw new Error("Module not found.");
-  }),
+    .not()
+    .isEmpty()
+    .withMessage("Module ID is required.")
+    .bail()
+    .custom(async (moduleId) => {
+      const module = await prisma.modules.findUnique({
+        where: { id: moduleId },
+      });
+      if (!module) throw new Error("Module not found.");
+    }),
 
   check("studentId")
     .not()
@@ -41,7 +42,9 @@ export const createRegistrationValidator = [
     .withMessage("Student ID is required.")
     .bail()
     .custom(async (studentId) => {
-      const student = await prisma.students.findUnique({ where: { id: studentId } });
+      const student = await prisma.students.findUnique({
+        where: { id: studentId },
+      });
       if (!student) throw new Error("Student not found.");
     }),
 
@@ -62,7 +65,9 @@ export const updateRegistrationValidators = [
     .withMessage("Registration ID is required.")
     .bail()
     .custom(async (id) => {
-      const registration = await prisma.registrations.findUnique({ where: { id: Number(id) } });
+      const registration = await prisma.registrations.findUnique({
+        where: { id: Number(id) },
+      });
       if (!registration) throw new Error("Registration not found.");
       return true;
     }),
@@ -77,24 +82,27 @@ export const updateRegistrationValidators = [
     .isISO8601()
     .withMessage("Start date must be a valid ISO 8601 date."),
 
-  
   check("amount")
     .optional()
     .isDecimal({ decimal_digits: "2" })
     .withMessage(
       "Amount must be a valid decimal number with two decimal places.",
     ),
-    check("moduleId")
+  check("moduleId")
     .optional()
     .custom(async (moduleId) => {
-      const module = await prisma.modules.findUnique({ where: { id: moduleId } });
+      const module = await prisma.modules.findUnique({
+        where: { id: moduleId },
+      });
       if (!module) throw new Error("Module not found.");
     }),
 
   check("studentId")
     .optional()
     .custom(async (studentId) => {
-      const student = await prisma.students.findUnique({ where: { id: studentId } });
+      const student = await prisma.students.findUnique({
+        where: { id: studentId },
+      });
       if (!student) throw new Error("Student not found.");
     }),
 
@@ -115,7 +123,9 @@ export const getRegistrationByIdValidators = [
     .withMessage("Registration ID is required.")
     .bail()
     .custom(async (id) => {
-      const registration = await prisma.registrations.findUnique({ where: { id: Number(id) } });
+      const registration = await prisma.registrations.findUnique({
+        where: { id: Number(id) },
+      });
       if (!registration) throw new Error("Registration not found.");
       return true;
     }),
@@ -131,22 +141,22 @@ export const getRegistrationByIdValidators = [
   },
 ];
 export const deleteRegistrationValidators = [
-    param("id")
-      .notEmpty()
-      .withMessage("Registration ID is required!")
-      .bail()
-      .isInt({ min: 1 })
-      .withMessage("Registration ID must be a positive integer.")
-      .bail()
-      .custom(async (id) => {
-        const registration = await prisma.registrations.findUnique({
-          where: { id: parseInt(id, 10) },
-        });
-        if (!registration) {
-          throw new Error("This registration does not exist!");
-        }
-        return true;
-      }),
+  param("id")
+    .notEmpty()
+    .withMessage("Registration ID is required!")
+    .bail()
+    .isInt({ min: 1 })
+    .withMessage("Registration ID must be a positive integer.")
+    .bail()
+    .custom(async (id) => {
+      const registration = await prisma.registrations.findUnique({
+        where: { id: parseInt(id, 10) },
+      });
+      if (!registration) {
+        throw new Error("This registration does not exist!");
+      }
+      return true;
+    }),
 
   (req, res, next) => {
     const errors = validationResult(req);

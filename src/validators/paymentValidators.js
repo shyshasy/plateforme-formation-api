@@ -1,29 +1,30 @@
-
 import { check, validationResult, param } from "express-validator";
 import { StatusCodes } from "http-status-codes";
 import prisma from "../config/prisma.js";
 
 export const createPaymentValidator = [
   check("paymentDate")
-  .not()
-  .isEmpty()
-  .withMessage("Payment date is required.")
-  .isISO8601()
-  .withMessage("Payment date must be a valid date format."),
+    .not()
+    .isEmpty()
+    .withMessage("Payment date is required.")
+    .isISO8601()
+    .withMessage("Payment date must be a valid date format."),
 
   check("amount")
-  .not()
-  .isEmpty()
-  .withMessage("Amount is required.")
-  .isDecimal({ decimal_digits: "0,2" })
-  .withMessage("Amount must be a valid decimal number with up to two decimal places."),
+    .not()
+    .isEmpty()
+    .withMessage("Amount is required.")
+    .isDecimal({ decimal_digits: "0,2" })
+    .withMessage(
+      "Amount must be a valid decimal number with up to two decimal places.",
+    ),
 
   check("payer")
-  .not()
-  .isEmpty()
-  .withMessage("Payer name is required.")
-  .isLength({ max: 50 })
-  .withMessage("Payer name must be up to 50 characters long."),
+    .not()
+    .isEmpty()
+    .withMessage("Payer name is required.")
+    .isLength({ max: 50 })
+    .withMessage("Payer name must be up to 50 characters long."),
 
   check("payerNumber")
     .trim()
@@ -122,7 +123,7 @@ export const updatePaymentValidator = [
     .notEmpty()
     .withMessage("Payer name cannot be empty."),
 
-    check("payerNumber")
+  check("payerNumber")
     .trim()
     .notEmpty()
     .withMessage("Payer phone number is required.")
