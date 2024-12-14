@@ -1,72 +1,89 @@
-export const  createPaymentValidator = [
-    isValidDate("paymentDate"),
+import { check, validationResult, param } from "express-validator";
+import { StatusCodes } from "http-status-codes";
+
+function isValidDate(value) {
+  const date = new Date(value);
+  return !isNaN(date.getTime());
+}
+
+function isPositiveDecimal(value) {
+  return !isNaN(value) && parseFloat(value) > 0;
+}
+
+export const createPaymentValidator = [
+  check("paymentDate")
+    .custom(isValidDate)
+    .withMessage("Payment date must be a valid date."),
   
-    isPositiveDecimal("amount"),
+  check("amount")
+    .custom(isPositiveDecimal)
+    .withMessage("Amount must be a positive decimal value."),
   
-    check("payer")
-      .trim()
-      .notEmpty()
-      .withMessage("Payer name is required."),
+  check("payer")
+    .trim()
+    .notEmpty()
+    .withMessage("Payer name is required."),
   
-    check("payerNumber")
-      .trim()
-      .notEmpty()
-      .withMessage("Payer phone number is required.")
-      .bail()
-      .matches(/^\+?\d{1,15}$/)
-      .withMessage("Payer phone number must be valid."),
+  check("payerNumber")
+    .trim()
+    .notEmpty()
+    .withMessage("Payer phone number is required.")
+    .bail()
+    .matches(/^\+?\d{1,15}$/)
+    .withMessage("Payer phone number must be valid."),
   
-    check("paymentMode")
-      .trim()
-      .notEmpty()
-      .withMessage("Payment mode is required."),
+  check("paymentMode")
+    .trim()
+    .notEmpty()
+    .withMessage("Payment mode is required."),
   
-    param("registrationId")
-      .notEmpty()
-      .withMessage("Registration ID is required.")
-      .bail()
-      .custom(async (value) => {
-        const registration = await prisma.registrations.findUnique({ where: { id: parseInt(value) } });
-        if (!registration) {
-          throw new Error("Registration not found.");
-        }
-        return true;
-      }),
-  
-    param("studentId")
-      .notEmpty()
-      .withMessage("Student ID is required.")
-      .bail()
-      .custom(async (value) => {
-        const student = await prisma.students.findUnique({ where: { id: parseInt(value) } });
-        if (!student) {
-          throw new Error("Student not found.");
-        }
-        return true;
-      }),
-  
-    param("moduleId")
-      .notEmpty()
-      .withMessage("Module ID is required.")
-      .bail()
-      .custom(async (value) => {
-        const module = await prisma.modules.findUnique({ where: { id: parseInt(value) } });
-        if (!module) {
-          throw new Error("Module not found.");
-        }
-        return true;
-      }),
-  
-    (req, res, next) => {
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        return res
-          .status(StatusCodes.UNPROCESSABLE_ENTITY)
-          .json({ errors: errors.array() });
+  param("registrationId")
+    .notEmpty()
+    .withMessage("Registration ID is required.")
+    .bail()
+    .custom(async (value) => {
+      const registration = await prisma.registrations.findUnique({ where: { id: parseInt(value) } });
+      if (!registration) {
+        throw new Error("Registration not found.");
       }
-      next();
+      return true;
+    }),
+  
+  param("studentId")
+    .notEmpty()
+    .withMessage("Student ID is required.")
+    .bail()
+    .custom(async (value) => {
+      const student = await prisma.students.findUnique({ where: { id: parseInt(value) } });
+      if (!student) {
+        throw new Error("Student not found.");
+      }
+      return true;
+    }),
+  
+  param("moduleId")
+    .notEmpty()
+    .withMessage("Module ID is required.")
+    .bail()
+    .custom(async (value) => {
+      const module = await prisma.modules.findUnique({ where: { id: parseInt(value) } });
+      if (!module) {
+        throw new Error("Module not found.");
+      }
+      return true;
+    }),
+  
+  (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res
+        .status(StatusCodes.UNPROCESSABLE_ENTITY)
+        .json({ errors: errors.array() });
     }
-  ];
+    next();
+  }
+];
+
   export const updatePaymentValidator = [
     param("id")
       .notEmpty()
