@@ -29,32 +29,37 @@ export const getRegistrationById = async (req, res) => {
 export const createRegistration = async (req, res) => {
   const { dateRegister, startDate, amount, moduleId, studentId } = req.body;
 
-  // Récupérer la durée du module
-  const module = await prisma.modules.findUnique({
-    where: { id: moduleId },
-  });
+  try {
+    const module = await prisma.modules.findUnique({
+      where: { id: moduleId },
+    });
 
-  if (!module) {
-    return res.status(404).json({ message: "Module not found" });
+    if (!module) {
+      return res.status(404).json({ message: "Module not found" });
+    }
+
+    const endDate = new Date(startDate);
+    endDate.setDate(endDate.getDate() + module.duration);
+    const modulePrice = Number(module.price);
+    const additionalAmount = Number(amount);
+
+    const totalAmount = modulePrice + additionalAmount;
+
+    const registration = await prisma.registrations.create({
+      data: {
+        dateRegister: new Date(dateRegister),
+        startDate: new Date(startDate),
+        endDate: endDate,
+        amount: totalAmount, 
+        moduleId: moduleId,
+        studentId: studentId,
+      },
+    });
+
+    res.status(201).json(registration);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
-
-  // Calculer la date de fin
-  const endDate = new Date(startDate);
-  endDate.setDate(endDate.getDate() + module.duration);
-
-  // Créer l'enregistrement
-  const registration = await prisma.registrations.create({
-    data: {
-      dateRegister: new Date(dateRegister),
-      startDate: new Date(startDate),
-      endDate: endDate,
-      amount: amount,
-      moduleId: moduleId,
-      studentId: studentId,
-    },
-  });
-
-  res.status(201).json(registration);
 };
 
 export const updateRegistration = async (req, res) => {
@@ -62,29 +67,32 @@ export const updateRegistration = async (req, res) => {
   const { dateRegister, startDate, amount, moduleId, studentId } = req.body;
 
   try {
-    // Vérifier si le module existe et récupérer sa durée
+  
     const module = await prisma.modules.findUnique({
       where: { id: moduleId },
-      select: { duration: true },
+      select: { duration: true, price: true },
     });
 
     if (!module) {
-      return res.status(404).json({ error: "Module not found" });
+      return res.status(404).json({ message: "Module not found" });
     }
 
-    // Calculer la date de fin si `startDate` ou `moduleId` sont modifiés
     const calculatedEndDate = startDate
       ? new Date(new Date(startDate).getTime() + module.duration * 24 * 60 * 60 * 1000)
       : undefined;
 
-    // Mettre à jour l'enregistrement
+    const modulePrice = Number(module.price);
+    const additionalAmount = Number(amount);
+
+    const totalAmount = modulePrice + additionalAmount;
+
     const updatedRegistration = await prisma.registrations.update({
       where: { id: Number(id) },
       data: {
-        dateRegister,
-        startDate,
+        dateRegister: dateRegister ? new Date(dateRegister) : undefined,
+        startDate: startDate ? new Date(startDate) : undefined,
         endDate: calculatedEndDate,
-        amount,
+        amount: totalAmount, 
         moduleId,
         studentId,
       },
@@ -95,6 +103,7 @@ export const updateRegistration = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
 
 export const deleteRegistration = async (req, res) => {
   const { id } = req.params;
