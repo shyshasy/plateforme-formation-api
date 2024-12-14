@@ -1,27 +1,29 @@
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
+
 import { check, validationResult, param } from "express-validator";
 import { StatusCodes } from "http-status-codes";
-
-function isValidDate(value) {
-  const date = new Date(value);
-  return !isNaN(date.getTime());
-}
-
-function isPositiveDecimal(value) {
-  return !isNaN(value) && parseFloat(value) > 0;
-}
+import prisma from "../config/prisma.js";
 
 export const createPaymentValidator = [
   check("paymentDate")
-    .custom(isValidDate)
-    .withMessage("Payment date must be a valid date."),
+  .not()
+  .isEmpty()
+  .withMessage("Payment date is required.")
+  .isISO8601()
+  .withMessage("Payment date must be a valid date format."),
 
   check("amount")
-    .custom(isPositiveDecimal)
-    .withMessage("Amount must be a positive decimal value."),
+  .not()
+  .isEmpty()
+  .withMessage("Amount is required.")
+  .isDecimal({ decimal_digits: "0,2" })
+  .withMessage("Amount must be a valid decimal number with up to two decimal places."),
 
-  check("payer").trim().notEmpty().withMessage("Payer name is required."),
+  check("payer")
+  .not()
+  .isEmpty()
+  .withMessage("Payer name is required.")
+  .isLength({ max: 50 })
+  .withMessage("Payer name must be up to 50 characters long."),
 
   check("payerNumber")
     .trim()
@@ -120,9 +122,11 @@ export const updatePaymentValidator = [
     .notEmpty()
     .withMessage("Payer name cannot be empty."),
 
-  check("payerNumber")
-    .optional()
+    check("payerNumber")
     .trim()
+    .notEmpty()
+    .withMessage("Payer phone number is required.")
+    .bail()
     .matches(/^\+?\d{1,15}$/)
     .withMessage("Payer phone number must be valid."),
 

@@ -29,9 +29,10 @@ app.get("/", (req, res) => {
   res.send("Bienvenue dans mon API Express.js!");
 });
 
-app.use((err, req, res) => {
+app.use((err, _req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ error: "Une erreur est survenue!" });
+  next();
 });
 
 // Démarrage du serveur
