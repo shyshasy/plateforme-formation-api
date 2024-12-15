@@ -16,7 +16,7 @@ describe("Students tests", () => {
         address: "123 Main St",
         tutor: "Mr. Smith",
         status: true,
-      })
+      }),
     );
 
     // Mocking the update method for students
@@ -29,7 +29,7 @@ describe("Students tests", () => {
         address: "456 Elm St",
         tutor: "Mr. Johnson",
         status: false,
-      })
+      }),
     );
 
     // Mocking the findMany method for students
@@ -44,12 +44,12 @@ describe("Students tests", () => {
           tutor: "Mr. Smith",
           status: true,
         },
-      ])
+      ]),
     );
 
     // Mocking the delete method for students
     spyOn(prisma.students, "delete").and.returnValue(
-      Promise.resolve({ id: studentId })
+      Promise.resolve({ id: studentId }),
     );
   });
 

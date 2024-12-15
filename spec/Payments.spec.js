@@ -21,7 +21,7 @@ describe("Payments tests", () => {
         registrationId: registrationId,
         studentId: studentId,
         moduleId: moduleId,
-      })
+      }),
     );
 
     // Mocking the update method for payments
@@ -36,7 +36,7 @@ describe("Payments tests", () => {
         registrationId: registrationId,
         studentId: studentId,
         moduleId: moduleId,
-      })
+      }),
     );
 
     // Mocking the findMany method for payments
@@ -53,12 +53,12 @@ describe("Payments tests", () => {
           studentId: studentId,
           moduleId: moduleId,
         },
-      ])
+      ]),
     );
 
     // Mocking the delete method for payments
     spyOn(prisma.payments, "delete").and.returnValue(
-      Promise.resolve({ id: paymentId })
+      Promise.resolve({ id: paymentId }),
     );
   });
 

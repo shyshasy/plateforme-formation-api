@@ -81,7 +81,9 @@ export const updateRegistration = async (req, res) => {
     }
 
     const calculatedEndDate = startDate
-      ? new Date(new Date(startDate).getTime() + module.duration * 24 * 60 * 60 * 1000)
+      ? new Date(
+          new Date(startDate).getTime() + module.duration * 24 * 60 * 60 * 1000,
+        )
       : undefined;
 
     const modulePrice = Number(module.price);
