@@ -39,47 +39,47 @@ export const createPaymentValidator = [
     .notEmpty()
     .withMessage("Payment mode is required."),
 
-  param("registrationId")
-    .notEmpty()
-    .withMessage("Registration ID is required.")
-    .bail()
-    .custom(async (value) => {
-      const registration = await prisma.registrations.findUnique({
-        where: { id: parseInt(value) },
-      });
-      if (!registration) {
-        throw new Error("Registration not found.");
-      }
-      return true;
-    }),
+  // param("registrationId")
+  //   .notEmpty()
+  //   .withMessage("Registration ID is required.")
+  //   .bail()
+  //   .custom(async (value) => {
+  //     const registration = await prisma.registrations.findUnique({
+  //       where: { id: parseInt(value) },
+  //     });
+  //     if (!registration) {
+  //       throw new Error("Registration not found.");
+  //     }
+  //     return true;
+  //   }),
 
-  param("studentId")
-    .notEmpty()
-    .withMessage("Student ID is required.")
-    .bail()
-    .custom(async (value) => {
-      const student = await prisma.students.findUnique({
-        where: { id: parseInt(value) },
-      });
-      if (!student) {
-        throw new Error("Student not found.");
-      }
-      return true;
-    }),
+  // param("studentId")
+  //   .notEmpty()
+  //   .withMessage("Student ID is required.")
+  //   .bail()
+  //   .custom(async (value) => {
+  //     const student = await prisma.students.findUnique({
+  //       where: { id: parseInt(value) },
+  //     });
+  //     if (!student) {
+  //       throw new Error("Student not found.");
+  //     }
+  //     return true;
+  //   }),
 
-  param("moduleId")
-    .notEmpty()
-    .withMessage("Module ID is required.")
-    .bail()
-    .custom(async (value) => {
-      const module = await prisma.modules.findUnique({
-        where: { id: parseInt(value) },
-      });
-      if (!module) {
-        throw new Error("Module not found.");
-      }
-      return true;
-    }),
+  // param("moduleId")
+  //   .notEmpty()
+  //   .withMessage("Module ID is required.")
+  //   .bail()
+  //   .custom(async (value) => {
+  //     const module = await prisma.modules.findUnique({
+  //       where: { id: parseInt(value) },
+  //     });
+  //     if (!module) {
+  //       throw new Error("Module not found.");
+  //     }
+  //     return true;
+  //   }),
 
   (req, res, next) => {
     const errors = validationResult(req);
