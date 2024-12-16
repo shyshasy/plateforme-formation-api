@@ -1,10 +1,10 @@
 import express from "express";
-import {
-  createStudentValidator,
-  deleteStudentValidator,
-  getStudentByIdValidator,
-  updateStudentValidator,
-} from "../validators/studentsValidators.js";
+// import {
+//   createStudentValidator,
+//   deleteStudentValidator,
+//   getStudentByIdValidator,
+//   updateStudentValidator,
+// } from "../validators/studentsValidators.js";
 import {
   createStudent,
   deleteStudent,
@@ -15,10 +15,10 @@ import {
 
 const studentRouter = express.Router();
 
-studentRouter.post("/student", createStudentValidator, createStudent);
+studentRouter.post("/student",  createStudent);
 studentRouter.get("/student", getAllStudents);
-studentRouter.get("/student/:id", getStudentByIdValidator, getStudentById);
-studentRouter.put("/student/:id", updateStudentValidator, updateStudent);
-studentRouter.delete("/student/:id", deleteStudentValidator, deleteStudent);
+studentRouter.get("/student/:id",  getStudentById);
+studentRouter.put("/student/:id",  updateStudent);
+studentRouter.delete("/student/:id",  deleteStudent);
 
 export default studentRouter;
