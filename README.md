@@ -195,3 +195,6 @@ npm run format
 ## Auteur
 
 [N'Diaye Ousmane Camara](https://github.com/NdiayeOusmanaCamara)
+
+
+[Hama Houllah Mangassouba ](https://https://github.com/Mangassouba)
