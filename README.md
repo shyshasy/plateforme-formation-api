@@ -78,89 +78,6 @@ npm start
 
 L'API sera accessible à `http://localhost:4000`
 
-## Endpoints de l'API
-
-### Student
-
-### GET /student
-
-- Description : Récupère toutes les etudiants. `http://localhost:4000/payment`
-- Réponse
-
-```
-[
-    {
-        "id": 2,
-        "fullName": "John Doe",
-        "phoneNumber": "+1234567890",
-        "email": "john.doe@example.com",
-        "address": "123 Main St, Springfield",
-        "tutor": "Jane Doe",
-        "status": true
-    }
-]
-```
-
-### POST/student
-
-- Description : Crée une nouvelle student. http://localhost:4000/student
-
-- Corps de la requête :
-
-```
-{
-  "fullName": "Manga",
-  "phoneNumber": 1234567890,
-  "email": "john.doe@example.com",
-  "address": "123 Main St, Springfield",
-  "tutor": "Jane Doe",
-  "status": true
-}
-```
-
-- Reponse:
-
-```
-{
-  "message": "Student ajouter avec succès"
-}
-```
-
-### PUT /student/id
-
-- Description : Met à jour un etudiant existante. http://localhost:4000/student/4
-
-- Corps de la requête :
-
-```
-  {
-    "dateRegister": "2024-12-01T00:00:00.000Z",
-    "startDate": "2024-12-15T00:00:00.000Z",
-    "amount": 700,
-    "moduleId": 1,
-    "studentId": 2
-  }
-```
-
-Réponse:
-
-```
-{
-  "message": "Etudiant mise à jour avec succès"
-}
-```
-
-### DELETE /student/id
-
-- Description : Supprime un etudiant par ID. `http://localhost:3000/student/2`
-- Réponse :
-
-```
-{
-  "message": "Etudiant supprimée avec succès"
-}
-```
-
 ## les tests unitaires
 
 L'application utilise Jasmine pour les tests unitaires. Pour exécuter les tests, utilisez la commande suivante:
@@ -189,7 +106,7 @@ npm run format
 
 ## Documentation et Collection Postman
 
-- Exporter la collection plateforme-formation:`plateforme-formation.postman_collection`
+- Exporter la collection plateforme-formation:`plateform-formation.postman_collection`
 - Importer dans Postman et exécuter les requêtes.
 
 ## Auteur
