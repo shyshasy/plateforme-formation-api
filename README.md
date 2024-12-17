@@ -112,4 +112,4 @@ npm run format
 ## Auteur
 
 
-[Hama Houllah Mangassouba ](https://https://github.com/Mangassouba)
+[Aichetou Taher Sy](https://github.com/shyshasy/)
