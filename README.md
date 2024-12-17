@@ -33,7 +33,7 @@ Suivez ces étapes pour configurer le projet sur votre machine locale :
 1. Clonez le dépôt sur votre machine locale :
 
 ```
-git clone https://github.com/Mangassouba/plateforme-formation-api
+git clone https://github.com/shyshasy/plateforme-formation-api.git
 
 ```
 
